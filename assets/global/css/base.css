@@ -1,0 +1,5 @@
+.mainShowAjaxInfoBase{position:absolute;min-width:300px;max-width:500px;width:auto;min-height:40px;height:auto;top:40%;left:40%;font-weight: bold;padding:10px;text-align:center;border-width: 1px;border-radius: 4px;box-sizing: border-box;z-index:9999;display:none;}
+.mainShowAjaxInfoSuccess{background-color:#dff0d8;border-color: #d6e9c6;color: #3c763d;}
+.mainShowAjaxInfoFailed{background-color: #f2dede;border-color: #ebccd1;color: #a94442;}
+table td,table th{text-align:center;}
+#choosePos label{min-width:100px;width:auto;}

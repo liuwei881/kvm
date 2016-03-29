@@ -1,0 +1,20 @@
+{% extends "main.html" %}
+{% block content %}
+<div class="portlet box blue">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-cogs"></i>创建快照失败
+        </div>
+    </div>
+
+    <div class="portlet-body">
+        <table class="table table-bordered">
+            <tbody>
+            在{{h.image_name}}上创建快照失败<br/><br/>
+            失败原因{{e}}
+            </tbody>
+        </table>
+    </div>
+        <a href="/clouddisk/"><button class="btn red-haze btn-sm">返回</button></a>
+</div>
+{% endblock %}

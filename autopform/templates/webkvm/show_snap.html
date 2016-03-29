@@ -1,0 +1,84 @@
+{% extends "main.html" %}
+{% block content %}
+<div class="portlet box blue">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-cogs"></i>kvm虚拟机列表
+        </div>
+        {%ifequal username 'admin'%}
+        <div>
+            <form action="/webkvm/search_kvm/" method="GET" class="navbar-form navbar-left" role="search">
+                <div class="form-group">
+                    <div class="col-sm-2">
+                        <input type="text" name="q" class="form-control" id="q" placeholder="云主机名称">
+                    </div>
+                </div>
+                    <button type="submit" class="btn red-haze btn-sm">搜索</button>
+            </form>
+        </div>
+        {%endifequal%}
+    </div>
+
+    <div class="portlet-body">
+        <table class="table table-bordered">
+            <tbody>
+            <tr>
+                <th>云主机用途</th>
+                <th>ip</th>
+                <th>大小</th>
+                <th>镜像名称</th>
+                <th>宿主机</th>
+                <th>创建时间</th>
+                <th>所属项目</th>
+                <th>登录密钥</th>
+                <th>状态</th>
+                <th>查看快照</th>
+            </tr>
+            {%for i in List%}
+            <tr>
+                <td>
+                    <div class="center-block">
+                    <ul style= "list-style:none; ">
+                        <li class="dropdown dropdown-user dropdown-dark">
+                            <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                                        {{i.cloud_name}}
+                            </a>
+                        <ul class="dropdown-menu dropdown-menu-default">
+                            <li>
+								<a href="javascript:void(0);">
+								<li >虚拟机名称</li></a>
+							</li>
+							<li class="divider">
+							</li>
+							<li>
+								<a href="javascript:void(0);">
+								<i>{{i.hostname}}</i></a>
+							</li>
+                        </ul>
+                        </li>
+                    </ul>
+                        </div>
+                </td>
+                <td>{{i.ip}}</td>
+                <td>{{i.vir_disk}}</td>
+                <td>{{i.mirror_name}}</td>
+                <td>{{i.main_host}}</td>
+                <td>{{i.create_time}}</td>
+                <td>{{i.projects_name}}</td>
+                <td>{{i.secret_name}}</td>
+                {% ifequal i.host_status 'online' %}
+                <td class="success">{{i.host_status}}</td>
+                {%else%}
+                <td class="danger">{{i.host_status}}</td>
+                {% endifequal %}
+                <td>
+                <a href="/manager/snapshot/show_snapshot/{{i.id}}">
+                <button type="button" class="btn red-haze btn-sm">查看快照</button></a>
+                </td>
+                {%endfor%}
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends "autopform/base.html" %}
+{% block content %}
+<form action="/salt_result/"  method="get" class="form-horizontal" role="form">
+
+     <div class="form-group">
+     <label for="ipname" class="col-sm-2 control-label">请选择服务器</label>
+	<div class="col-sm-4">
+            <select type="text" name="hostname" class="form-control" id="ipname" placeholder="col-sm-4">
+                <option>请选择一台机子</option>
+                <option>192.168.60.150</option>
+        	<option>192.168.60.214</option>
+            </select>
+        </div>
+    </div>
+
+     <div class="form-group">
+     <label for="runcmd" class="col-sm-2 control-label">请选择命令</label>
+        <div class="col-sm-4">
+            <select type="text" name="cmd" class="form-control" id="runcmd" placeholder="col-sm-4">
+                <option>请选择一个命令</option>
+                <option>"virsh list --all"</option>
+                <option>"virsh start xxxx"</option>
+                <option>"virsh shutdown xxxx"</option>
+                <option>"virsh destroy wintest01"</option>
+            </select>
+        </div>
+    </div>
+
+
+   <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+         <button type="submit" class="btn btn-default">运行命令</button>
+      </div>
+   </div>
+</form>
+<br>
+<p>运行结果
+<textarea class="form-control" clos="20" rows="5">
+{{result}}
+</textarea>
+</p>
+{% endblock %}

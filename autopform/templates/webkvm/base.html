@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<!-- saved from url=(0050)http://getbootstrap.com/examples/starter-template/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" id="page">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="http://getbootstrap.com/favicon.ico">
+    <title>快用运维平台</title>
+    <!-- Bootstrap core CSS -->
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+  </head>
+  <body>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div>
+        <div>
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span>手机版</span>
+          </button>
+          <a href="/">快用运维平台</a>
+        </div>
+
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="/booklist/">技术文档</a></li>
+            <li><a href="/runcmd/">批量命令执行</a></li>
+	    <!-- <ul class="nav nav-pills"> -->
+            <li class="dropdown all-camera-dropdown">
+               <a class="dropdown-toggle" data-toggle="dropdown">
+                 服务器监控
+               <b class="caret"></b>
+               </a>
+            <ul class="dropdown-menu">
+            <li><a href="/property/">资产管理</a></li>
+            <li><a href="/monitor/">服务器监控</a></li>
+            </ul></li>
+            <li><a href="/servers/">webkvm管理</a></li>
+            <li><a href="http://getbootstrap.com/examples/starter-template/#contact">Ansible批量执行</a></li>
+            <li><a href="http://getbootstrap.com/examples/starter-template/#contact">运维审计</a></li>
+            <li><a href="http://getbootstrap.com/examples/starter-template/#contact">关于</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+<body>
+     <br><br><br<br><br><br>
+    {% block content %}
+    {% endblock %}
+    {% block footer %}
+        <p>谢谢观赏</p>
+    {% endblock %}
+</body>
+<script src="/static/js/jquery.min.js"></script>
+<script src="/static/js/bootstrap.min.js"></script>
+</head>
+</html>

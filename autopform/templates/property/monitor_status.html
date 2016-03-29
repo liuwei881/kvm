@@ -1,0 +1,60 @@
+{%comment%}
+{% extends "property/base.html" %}
+{%endcomment%}
+{% block content %}
+<title>
+服务器系统相关信息
+</title>
+{{h.ip}}
+<br/><br/>
+<div class="span1" style="width:49%;float:left;">
+      <ul class="thumbnails">
+        <li class="span1">
+             <a href="#" class="thumbnail">
+           <img src="/static/{{h.ip}}_cpu.png" alt="">
+          </a>
+        </li>
+      </ul>
+        </div>
+
+<div class="span2" style="width:49%;float:left;">
+      <ul class="thumbnails">
+        <li class="span2">
+             <a href="#" class="thumbnail">
+           <img src="/static/{{h.ip}}_load.png" alt="">
+          </a>
+        </li>
+      </ul>
+        </div>
+
+<div class="span3" style="width:49%;float:right;">
+      <ul class="thumbnails">
+        <li class="span3">
+             <a href="#" class="thumbnail">
+           <img src="/static/{{h.ip}}_mem.png" alt="">
+          </a>
+        </li>
+      </ul>
+        </div>
+
+<div class="span4" style="width:49%;float:left;">
+      <ul class="thumbnails">
+        <li class="span4">
+             <a href="#" class="thumbnail">
+           <img src="/static/{{h.ip}}_disk1.png" alt="">
+          </a>
+        </li>
+      </ul>
+        </div>
+
+<div class="span5" style="width:49%;">
+      <ul class="thumbnails">
+        <li class="span5">
+             <a href="#" class="thumbnail">
+           <img src="/static/{{h.ip}}_disk2.png" alt="">
+          </a>
+        </li>
+      </ul>
+        </div>
+
+{% endblock %}

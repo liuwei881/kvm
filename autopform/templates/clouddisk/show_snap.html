@@ -1,0 +1,58 @@
+{% extends "main.html" %}
+{% block content %}
+<div class="portlet box blue">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-cogs"></i>查看镜像快照
+        </div>
+    </div>
+
+    <div class="portlet-body">
+        <table class="table table-bordered">
+            <tbody>
+            <tr>
+                <th>编号</th>
+                <th>快照名称</th>
+                <th>镜像大小</th>
+                <th>创建时间</th>
+                <th>宿主镜像</th>
+            </tr>
+                {%for i in show_snap%}
+            <tr>
+                {%ifequal i.image_name h.image_name%}
+                <td>{{i.id}}</td>
+                <td>{{i.snap_name}}</td>
+                <td>{{i.snap_size}}</td>
+                <td>{{i.create_time}}</td>
+                <td>{{i.image_name}}</td>
+                <td>
+                    <div class="btn-group">
+                        <button type="button" class="btn red-haze btn-sm dropdown-toggle" data-toggle="dropdown" data-close-others="true">
+                            <span class="hidden-sm hidden-xs">操作&nbsp;</span>
+                            <i class="fa fa-angle-down"></i>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <a href="/clouddisk/delsnap/{{i.id}}/{{i.snap_id}}">
+                                    <i class="icon-docs"></i> 删除快照 </a>
+                            </li>
+                            <li>
+                                <a href="/clouddisk/rollback/{{i.id}}/{{i.snap_id}}">
+                                    <i class="icon-docs"></i> 从此快照恢复 </a>
+                            </li>
+                            <li>
+                                <a href="/clouddisk/rollbacklog/{{i.id}}/{{i.snap_id}}">
+                                    <i class="icon-tag"></i> 查看快照恢复日志 </a>
+                            </li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+            {%endifequal%}
+            {%endfor%}
+            </tbody>
+        </table>
+    </div>
+    <a href="/clouddisk/"><button class="btn red-haze btn-sm">返回</button></a>
+</div>
+{% endblock %}

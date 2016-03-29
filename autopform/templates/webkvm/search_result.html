@@ -1,0 +1,146 @@
+{% extends "main.html" %}
+{% block content %}
+<div class="portlet box blue">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-cogs"></i>kvm虚拟机列表
+        </div>
+        <div>
+            <form action="/webkvm/search_kvm/{{pro.id}}/" method="GET" class="navbar-form navbar-left" role="search">
+                <div class="form-group">
+                    <div class="col-sm-2">
+                        <input type="text" name="q" class="form-control" id="q" placeholder="云主机名称">
+                    </div>
+                </div>
+                    <button type="submit" class="btn red-haze btn-sm">搜索</button>
+            </form>
+        </div>
+    </div>
+    <div class="portlet-body">
+        <table class="table table-bordered">
+            <tbody>
+            <tr>
+                <th>云主机用途</th>
+                <th>ip</th>
+                <th>大小</th>
+                <th>镜像名称</th>
+                <th>宿主机</th>
+                <th>创建时间</th>
+                <th>所属项目</th>
+                <th>登录密钥</th>
+                <th>状态</th>
+                <th>操作</th>
+                <th>vnc管理</th>
+            </tr>
+            {%for i in results%}
+            <tr>
+                <td>
+                    <div class="text-center">
+                    <ul style= "list-style:none; ">
+                        <li class="dropdown dropdown-user dropdown-dark">
+                            <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                                        {{i.cloud_name}}
+                            </a>
+                        <ul class="dropdown-menu dropdown-menu-default">
+                            <li>
+								<a href="javascript:void(0);">
+								<li >虚拟机名称</li></a>
+							</li>
+							<li class="divider">
+							</li>
+							<li>
+								<a href="javascript:void(0);">
+								<i>{{i.hostname}}</i></a>
+							</li>
+                        </ul>
+                        </li>
+                    </ul>
+                        </div>
+                </td>
+                <td>{{i.ip}}</td>
+                <td>{{i.vir_disk}}</td>
+                <td>{{i.mirror_name}}</td>
+                <td>{{i.main_host}}</td>
+                <td>{{i.create_time}}</td>
+                <td>{{i.projects_name}}</td>
+                <td>{{i.secret_name}}</td>
+                {% ifequal i.host_status 'online' %}
+                <td class="success">{{i.host_status}}</td>
+                {%else%}
+                <td class="danger">{{i.host_status}}</td>
+                {% endifequal %}
+                <td>
+                    <div class="btn-group">
+                    <button type="button" class="btn red-haze btn-sm dropdown-toggle" data-toggle="dropdown" data-close-others="true">
+                        <span class="hidden-sm hidden-xs">操作&nbsp;</span>
+                        <i class="fa fa-angle-down"></i>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li>
+                            <a href="start/{{i.id}}">
+                                <i class="icon-docs"></i> 开机 </a>
+                        </li>
+                        <li>
+                            <a href="shutdown/{{i.id}}">
+                                <i class="icon-docs"></i> 关机 </a>
+                        </li>
+                        <li>
+                            <a href="reboot/{{i.id}}">
+                                <i class="icon-tag"></i> 重启 </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);">
+                                <i class="icon-tag" data-toggle="modal" data-target="#myModal_delete_{{i.id}}">  删除虚拟机</i></a>
+                        </li>
+                        <li>
+                            <a href="/manager/snapshot/create_snapshot/{{i.id}}">
+                                <i class="icon-tag"></i> 创建快照 </a>
+                        </li>
+                        <li>
+                            <a href="/manager/snapshot/show_snapshot/{{i.id}}">
+                                <i class="icon-tag"></i> 查看快照 </a>
+                        </li>
+                    </ul>
+                    </div>
+                </td>
+                <td>
+                    <a href="/vnc_start/{{i.id}}/" target="_blank">
+                        <button type="button" class="btn red-haze btn-sm">vnc管理</button>
+                    </a>
+                </td>
+                <div class="modal fade" id="myModal_delete_{{i.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel_delete_{{i.id}}" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
+                            </button>
+                            <h4 class="modal-title" id="myModalLabel_delete_{{i.id}}">
+                                删除虚拟机
+                            </h4>
+                        </div>
+                        <div>
+                            <form action="del_vm/{{i.id}}" name="theForm_delete_vm" method="get" class="form-horizontal" id="hostForm_delete_{{i.id}}" role="form">
+                                <div>
+                                    <font color="#FF0000" size="6">确定要删除虚拟机 {{i.cloud_name}}</font>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn red-haze btn-sm" data-dismiss="modal">关闭</button>
+                                    <button type="submit" class="btn red-haze btn-sm" data-toggle="modal" aria-hidden="true">删除</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                {%endfor%}
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    {%ifnotequal username 'admin'%}
+    <a href="/webkvm/manager_kvm/change_projects/{{pro.id}}/"><button type="button" class="btn red-haze btn-sm" data-dismiss="modal">返回</button></a>
+    {%else%}
+    <a href="/webkvm/manager_kvm/"><button type="button" class="btn red-haze btn-sm" data-dismiss="modal">返回</button></a>
+    {%endifnotequal%}
+</div>
+{% endblock %}

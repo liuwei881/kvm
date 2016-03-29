@@ -1,0 +1,104 @@
+{% extends "main.html" %}
+{% block content %}
+<div class="portlet box blue">
+	<div class="portlet-title">
+		<div class="caption">
+			<i class="fa fa-cogs"></i>中细软云管理平台
+		</div>
+		<div class="tools">
+			<a href="#portlet-config" data-toggle="modal" class="glyphicon glyphicon-plus" data-original-title="" title="">
+			</a>
+		</div>
+	</div>
+	<div class="portlet-body">
+		<div>
+			<table class="table table-bordered">
+				<h1>{{username}},欢迎光临中细软云平台</h1>
+			</table>
+		</div>
+	</div>
+</div>
+
+<div id="container" style="min-width:300px;height:300px"></div>
+
+{% endblock %}
+{% block appjs %}
+<script>
+$(function () {
+    $('#container').highcharts({
+
+        chart: {
+            type: 'column'
+        },
+
+        title: {
+            text: '项目资源统计'
+        },
+
+        xAxis: {
+            categories: [
+            {%for i in pro_projects%}
+                '{{i.pro_name}}',
+            {%endfor%}
+            ]
+        },
+
+        yAxis: {
+            allowDecimals: false,
+            min: 0,
+            title: {
+                text: '数量'
+            }
+        },
+
+        tooltip: {
+            formatter: function () {
+                return '<b>' + this.x + '</b><br/>' +
+                    this.series.name + ': ' + this.y + '<br/>' +
+                    'Total: ' + this.point.stackTotal;
+            }
+        },
+
+        plotOptions: {
+            column: {
+                stacking: 'normal'
+            }
+        },
+
+        series: [{
+            name: '已分配CPU数(单位:核)',
+            data: [
+            {%for i in pro_projects%}
+                {{i.v_cpu}},
+            {%endfor%}
+            ],
+            stack: 'CPU'
+        }, {
+            name: '未分配CPU数(单位:核)',
+            data: [
+            {%for i in pro_projects%}
+            {{i.c_cpu}} - {{i.v_cpu}},
+            {%endfor%}
+            ],
+            stack: 'CPU'
+        }, {
+            name: '已分配内存数(单位:G)',
+            data: [
+            {%for i in pro_projects%}
+            {{i.v_memory}},
+            {%endfor%}
+            ],
+            stack: '内存'
+        }, {
+            name: '未分配内存数(单位:G)',
+            data: [
+            {%for i in pro_projects%}
+            {{i.c_memory}} - {{i.v_memory}},
+            {%endfor%}
+            ],
+            stack: '内存'
+        }]
+    });
+});
+</script>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends "property/base.html" %}
+{% block content %}
+<div class="container">
+  <table class="table table-hover table-bordered table-condensed">
+     <caption>服务器信息一览</caption>
+       <thead> 
+       {%comment%} 
+       {% for i in H.values %}
+          {% for k, v in i.iteritems %}
+               <tr>
+        	<th>{{k}},{{h.ip}}</th>
+		<!--<td>{{v}}</td>-->
+              </tr>
+        {%endfor%}
+        {%endfor%}
+       </tr>
+       {%endcomment%}
+           <tr>
+           <th>服务器ip</th>
+           <td>{{h.ip}}</td>
+           </tr>
+           <tr>
+           <th>服务器硬盘</th>
+           <td>{{h.disk}}</td>
+           <tr>
+           <tr>
+           <th>服务器操作系统</th>
+           <td>{{h.osversion}}</td>
+           </tr>
+           <tr>
+           <th>服务器内存</th>
+           <td>{{h.memory}}</td>
+           </tr>
+           <tr>
+           <th>服务器cpu</th>
+           <td>{{h.model_name}}</td>
+           </tr>
+           <tr>
+           <th>服务器cpu核数</th>
+           <td>{{h.cpu_core}}</td>
+           </tr>
+       </thead> 
+  </table>
+</div>
+{% endblock %}

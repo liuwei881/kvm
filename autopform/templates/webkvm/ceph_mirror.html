@@ -1,0 +1,67 @@
+{% extends "main.html" %}
+{% block content %}
+<div class="portlet box blue">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-cogs"></i>ceph镜像池占用空间大小趋势
+        </div>
+    </div>
+</div>
+<div id="container" style="min-width:400px;height:400px"></div>
+{%endblock%}
+{% block appjs %}
+<script>
+$(function () {
+    $('#container').highcharts({
+        title: {
+            text: 'kvm镜像池空间大小趋势',
+            x: -20 //center
+        },
+
+        yAxis: {
+            title: {
+                text: '单位(G)'
+            },
+            plotLines: [{
+                value: 0,
+                width: 1,
+                color: '#808080'
+            }]
+        },
+        tooltip: {
+            valueSuffix: 'G'
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'middle',
+            borderWidth: 0
+        },
+
+        xAxis: {
+            categories: [
+            {% for i in create_time %}
+                "{{i}}",
+            {%endfor%}
+                ],
+        },
+        series: [
+            {% for k,v in d.iteritems %}
+            {
+            name: '{{k}}',
+
+            data: [
+                {%for i in v%}
+                    {{i.size}},
+                    {%endfor%}
+            ]
+
+        },
+{%endfor%}
+
+
+                ]
+    });
+});
+</script>
+{% endblock %}

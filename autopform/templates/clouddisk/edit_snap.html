@@ -1,0 +1,23 @@
+{% extends "main.html" %}
+{% block content %}
+<div class="portlet box blue">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-cogs"></i>在{{h.image_name}}上创建快照
+        </div>
+    </div>
+
+    <div class="portlet-body">
+        <form action="/clouddisk/createsnap/{{h.id}}"  method="get" class="form-horizontal" role="form">
+            <div class="form-group">
+                <label for="snap_name" class="col-sm-2 control-label">快照名称</label>
+                <div class="col-sm-2">
+                    <input type="text" name="snap_name" class="form-control" id="snap_name" placeholder="请输入快照名称">
+                </div>
+            </div>
+            <a href="/clouddisk/"><button class="btn red-haze btn-sm" type="button">返回</button></a>
+            <button class="btn red-haze btn-sm" data-toggle="modal">创建快照</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

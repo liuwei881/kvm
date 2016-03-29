@@ -1,0 +1,24 @@
+{% extends "main.html" %}
+{% block content %}
+<div class="portlet box blue">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-cogs"></i>下载密钥
+        </div>
+    </div>
+
+    <div class="portlet-body">
+        <table class="table table-bordered">
+            <tbody>
+            如果浏览器没有自动下载，请点击<br/>
+           <a href="{{html}}"> 下载密钥,请妥善保管 </a>
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
+{% block appjs %}
+<script>
+window.open('{{html}}');
+</script>
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends "main.html" %}
+{% block content %}
+
+<form action="addHost/"  method="get" class="form-horizontal" role="form">
+
+        <div class="form-group">
+            <label for="cpus" class="col-sm-2 control-label">请选择cpu核数</label>
+              <div class="col-sm-2">
+                  <select type="text" name="cpus" class="form-control" id="cpus" required>
+                        <option>请选择cpu核数</option>
+                        <option>1</option>
+                        <option>2</option>
+                  </select>
+              </div>
+        </div>
+
+        <div class="form-group">
+            <label for="system" class="col-sm-2 control-label">请选择服务器操作系统</label>
+              <div class="col-sm-2">
+                  <select type="text" name="system" class="form-control" id="system" required>
+                        <option>请选择服务器操作系统</option>
+                        <option>windows</option>
+                        <option>centos6.4</option>
+                  </select>
+              </div>
+        </div>
+
+        <div class="form-group">
+             <div class="col-sm-offset-2 col-sm-10">
+              <a href="addHost"><button type="submit" class="btn red-haze btn-sm">创建</button></a>
+             </div>
+        </div>
+</form>
+{% endblock %}

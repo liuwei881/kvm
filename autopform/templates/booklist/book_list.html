@@ -1,0 +1,19 @@
+{% extends "autopform/base.html" %}
+{%block content%}
+<div class="content">
+    {% for book in books %}
+        <h3><a href="{% url 'bookshow' book.id %}">{{ book.caption }}</a></h3>
+        <div>{{ book.content}} </div>
+    {% endfor %}     
+<p>
+</br></br></br></br></br></br></br></br></br>
+{% if books.has_previous %}
+  <a href="?page={{ books.previous_page_number }}">上一页</a>
+  {% endif %}
+  Page {{ books.number }} of {{ books.paginator.num_pages }}.
+{% if books.has_next %}
+  <a href="?page={{ books.next_page_number }}">下一页</a>
+{% endif %}
+</p>
+</div>
+{% endblock %}

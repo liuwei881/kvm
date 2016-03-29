@@ -1,0 +1,37 @@
+{% extends "main.html" %}
+{% block content %}
+<div class="portlet box blue">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-cogs"></i>ceph镜像挂载
+        </div>
+        <div class="tools">
+            <a href="#portlet-config" data-toggle="modal" class="glyphicon glyphicon-plus" data-original-title="" title="">
+            </a>
+        </div>
+    </div>
+    <div class="portlet-body">
+            <form action="/clouddisk/mountdisk/{{h.id}}"  method="get" class="form-horizontal" role="form">
+                <div class="form-group">
+                    <label for="image_name" class="col-sm-2 control-label">镜像名称</label>
+                    <div class="col-sm-2">
+                        <input type="text" class="form-control" id="image_name" placeholder="{{h.image_name}}" disabled>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="cloud_name" class="col-sm-2 control-label">挂载云服务器</label>
+                    <div class="col-sm-2">
+                        <select type="text" name="cloud_name" class="form-control" id="cloud_name" required>
+                            <option>请选择云服务器</option>
+                            {%for i in vm_ip%}
+                            <option>{{i.cloud_name}}</option>
+                            {%endfor%}
+                        </select>
+                    </div>
+                </div>
+                <a href="/clouddisk/"><button class="btn red-haze btn-sm">返回</button></a>
+                <button class="btn red-haze btn-sm">挂载</button>
+            </form>
+    </div>
+</div>
+{% endblock %}

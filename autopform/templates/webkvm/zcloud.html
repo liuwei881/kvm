@@ -1,0 +1,72 @@
+{% extends "main.html" %}
+{% block content %}
+<div class="portlet box blue">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-cogs"></i>zcloud数据库趋势
+        </div>
+    </div>
+</div>
+<div id="container" style="min-width:400px;height:400px"></div>
+{%endblock%}
+{% block appjs %}
+<script>
+$(function () {
+    $('#container').highcharts({
+        chart: {
+            zoomType: 'x'
+        },
+        title: {
+            text: 'zcloud数据库趋势'
+        },
+        xAxis: {
+         categories: [
+            {% for i in h %}
+                "{{i.create_time}}",
+            {%endfor%}
+                ],
+        min: {{l}},
+        },
+        yAxis: {
+            title: {
+                text: '单位(k)'
+            },
+        },
+        legend: {
+            enabled: false
+        },
+        plotOptions: {
+            area: {
+                fillColor: {
+                    linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1},
+                    stops: [
+                        [0, Highcharts.getOptions().colors[0]],
+                        [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+                    ]
+                },
+                marker: {
+                    radius: 2
+                },
+                lineWidth: 1,
+                states: {
+                    hover: {
+                        lineWidth: 1
+                    }
+                },
+                threshold: null
+            }
+        },
+
+        series: [{
+            type: 'area',
+            name: 'zcloud数据库',
+            data: [
+                {% for i in h %}
+                {{i.size}},
+            {%endfor%}
+            ]
+        }]
+    });
+});
+</script>
+{% endblock %}

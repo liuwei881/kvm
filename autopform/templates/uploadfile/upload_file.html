@@ -1,0 +1,35 @@
+{% extends "autopform/base.html" %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>{{ title }}</title>
+</head>
+<body>
+    <a>选择服务器</a>
+    <br><br>
+      <div class="btn-group">
+        <button type="button" class="btn btn-danger">服务器ip</button>
+        <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+          <span class="caret"></span>
+          <span class="sr-only">Toggle Dropdown</span>
+       </button>
+     <ul class="dropdown-menu" role="menu">
+        <li><a >Action</a></li>
+        <li><a href="#">{{ip}}</a></li>
+        <li><a href="#">Something else here</a></li>
+        <li class="divider"></li>
+        <li><a href="#">Separated link</a></li>
+      </ul>
+      </div>
+    <br><br>
+    <a>代码更新</a>
+    <br><br><br>
+    <h5 style="color:red"> {{upload}} </h5>
+    <form action="/uploadfile/" method="post" enctype="multipart/form-data" accept-charset="utf-8">
+    <a>本地文件</a> <input type="file" name="t_file" value="" />
+        <button>上传</button>
+    </form>
+</body>
+</html>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends "main.html" %}
+{% block content %}
+<div class="portlet box blue">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-cogs"></i>kvm快照一览
+        </div>
+    </div>
+    <div class="portlet-body">
+        <h4 class="modal-title" id="myModalLabel">
+            查看{{h.hostname}}上的快照
+        </h4>
+        <form action="show_snapshot/{{h.id}}"  method="get" class="form-horizontal" id="hostForm" role="form">
+                <table class="table table-bordered">
+                    <tbody>
+                        此虚拟机没有快照
+                    </tbody>
+                </table>
+            </div>
+                <a href="/webkvm/manager_kvm/"><button type="button" class="btn red-haze btn-sm" data-dismiss="modal">返回</button></a>
+        </form>
+    </div>
+</div
+{% endblock %}

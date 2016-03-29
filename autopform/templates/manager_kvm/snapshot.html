@@ -1,0 +1,45 @@
+{% extends "main.html" %}
+{% block content %}
+<div class="portlet box blue">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-cogs"></i>kvm快照管理
+        </div>
+    </div>
+
+    <div class="portlet-body">
+        <table class="table table-bordered">
+            <tbody>
+            <tr>
+                <th>kvm名称</th>
+                <th>ip</th>
+            </tr>
+            {%for i in h%}
+            <tr>
+                <td>{{i.hostname}}</td>
+                <td>{{i.ip}}</td>
+                <td>
+                    <div class="btn-group">
+                        <button type="button" class="btn red-haze btn-sm dropdown-toggle" data-toggle="dropdown" data-close-others="true">
+                            <span class="hidden-sm hidden-xs">操作&nbsp;</span>
+                            <i class="fa fa-angle-down"></i>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <a href="create_snapshot/{{i.id}}">
+                                    <i class="icon-docs"></i> 创建快照 </a>
+                            </li>
+                            <li>
+                                <a href="show_snapshot/{{i.id}}">
+                                    <i class="icon-docs"></i> 查看快照 </a>
+                            </li>
+                        </ul>
+                    </div>
+                </td>
+                {%endfor%}
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

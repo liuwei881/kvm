@@ -1,0 +1,45 @@
+{% extends "autopform/base.html" %}
+{% block content %}
+<form action="/run_result/"  method="get" class="form-horizontal" role="form">
+   <div class="form-group">
+      <label for="ipname" class="col-sm-2 control-label">请输入服务器ip</label>
+      <div class="col-sm-10">
+         <input type="text" name="hostname" class="form-control" id="ipname" 
+            placeholder="服务器ip">
+      </div>
+   </div>
+  <div class="form-group">
+      <label for="username" class="col-sm-2 control-label">用户名</label>
+      <div class="col-sm-10">
+         <input type="text" name="username" class="form-control" id="username" 
+            placeholder="请输入用户名">
+      </div>
+   </div>
+   <div class="form-group">
+      <label for="port" class="col-sm-2 control-label">服务器ssh端口</label>
+      <div class="col-sm-10">
+         <input type="text" name="port" class="form-control" id="port" 
+            placeholder="请输入ssh端口">
+      </div>
+   </div>
+   <div class="form-group">
+      <label for="runcmd" class="col-sm-2 control-label">执行命令</label>
+      <div class="col-sm-10">
+         <input type="text" name="cmd" class="form-control" id="runcmd" 
+            placeholder="执行命令">
+      </div>
+   </div>
+   <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+         <button type="submit" class="btn btn-default">运行命令</button>
+      </div>
+   </div>
+</form>
+<br>
+<p>运行结果
+<textarea class="form-control" clos="20" rows="5">
+{{hostname}}
+{{result}}
+</textarea>
+</p>
+{% endblock %}

@@ -1,0 +1,72 @@
+{% extends "main.html" %}
+{% block content %}
+<div class="portlet box blue">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-cogs"></i>云硬盘查询结果
+        </div>
+        <div>
+            <form action="/clouddisk/search_clouddisk/" method="GET" class="navbar-form navbar-left" role="search">
+                <div class="form-group">
+                    <div class="col-sm-2">
+                        <input type="text" name="q" class="form-control" id="q" placeholder="云硬盘名称">
+                    </div>
+                </div>
+                    <button type="submit" class="btn red-haze btn-sm">搜索</button>
+            </form>
+        </div>
+    </div>
+    <div class="portlet-body">
+        <table class="table table-bordered">
+            <tbody>
+            <tr>
+                <th>编号</th>
+                <th>云硬盘名称</th>
+                <th>云硬盘大小</th>
+                <th>挂载位置</th>
+
+            </tr>
+            {%for i in results%}
+            <tr>
+                <td>{{i.id}}</td>
+                <td>{{i.image_name}}</td>
+                <td>{{i.size}}</td>
+                <td>{{i.mount_location}}</td>
+                <td>
+                    <div class="btn-group">
+                        <button type="button" class="btn red-haze btn-sm dropdown-toggle" data-toggle="dropdown" data-close-others="true">
+                            <span class="hidden-sm hidden-xs">操作&nbsp;</span>
+                            <i class="fa fa-angle-down"></i>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <a href="/clouddisk/mountclouddisk/{{i.id}}">
+                                <i class="icon-docs"></i> 云硬盘挂载 </a>
+                            </li>
+                            <li>
+                                <a href="/clouddisk/umountdisk/{{i.id}}">
+                                    <i class="icon-docs"></i> 云硬盘卸载 </a>
+                            </li>
+                            <li>
+                                <a href="/clouddisk/editsnap/{{i.id}}">
+                                    <i class="icon-tag"></i> 创建云硬盘快照 </a>
+                            </li>
+                            <li>
+                                <a href="/clouddisk/showsnap/{{i.id}}/">
+                                    <i class="icon-tag"></i> 查看云硬盘快照 </a>
+                            </li>
+                            <li>
+                                <a href="/clouddisk/delimage/{{i.id}}/">
+                                    <i class="icon-tag"></i> 删除云硬盘 </a>
+                            </li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+            {%endfor%}
+            </tbody>
+        </table>
+    </div>
+    <a href="/clouddisk/"><button type="button" class="btn red-haze btn-sm" data-dismiss="modal">返回</button></a>
+</div>
+{% endblock %}

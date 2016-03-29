@@ -1,0 +1,23 @@
+{% extends "autopform/base.html" %}
+{% block content %}
+
+<div class="container">
+  <table class="table table-hover table-bordered table-condensed">
+   <caption>kvm服务器信息一览</caption>
+    <tbody>
+      <tr><th>kvm宿主机</th><th>包含虚拟机</th><th>添加虚拟机</th></tr>
+      {%for i in h%}
+      <tr><td>{{i.kvm_name}}</td><td>{{i.vir_name}}</td>
+       <td>
+       <a href="addHost"> <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addHost">添加</button></a>
+
+</div>
+       </td>
+        </tr>
+      {%endfor%}
+    </tbody>
+  </table>
+</div>
+
+
+{% endblock %}

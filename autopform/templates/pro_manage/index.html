@@ -1,0 +1,274 @@
+{% extends "main.html" %}
+	{% block content %}
+<div class="portlet box blue">
+                        <div class="portlet-title">
+                            <div class="caption">
+                                <i class="fa fa-cogs"></i>项目列表
+                            </div>
+                            <div class="tools">
+                                <a href="#portlet-config" data-toggle="modal" class="glyphicon glyphicon-plus" data-original-title="" title="">
+                                </a>
+                                <button type="button" class="btn red-haze btn-sm dropdown-toggle" data-toggle="modal" data-target="#myModal-addPro" data-close-others="true" >新建项目</button>
+                            </div>
+                        </div>
+                        <div class="portlet-body">
+                            <div>
+                                <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>项目</th>
+                                    <th>描述</th>
+                                    <th>虚拟机数量</th>
+                                    <th>CPU</th>
+                                    <th>内存</th>
+                                    <!--
+                                    <th>空间配额</th>
+                                    <th>硬盘</th>
+                                    -->
+                                    <th>状态</th>
+                                    <th>负责人</th>
+                                    <th>创建时间</th>
+                                    <th>操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                     {%for i in list%}
+                                        <tr>
+                                            <td>{{i.id}}</td>
+                                            <td>{{i.pro_name}}</td>
+                                            <td>{{i.pro_desc}}</td>
+                                            <td>{{i.c_config}}</td>
+                                            <td>{{i.c_cpu}}</td>
+                                            <td>{{i.c_memory}}</td>
+                                            <!--
+                                            <td>{{i.c_space}}</td>
+                                            <td>0/{{i.c_disk}}</td>
+                                            -->
+                                            <td>{{i.status}}</td>
+                                            <td>{{ i.admin }}</td>
+                                            <td>{{i.create_time}}</td>
+                                            <td>
+                                                <a href="javascript:void(0);" onclick="editPro({{i.id}})"><button type="button" class="btn btn-sm btn-primary">编辑</button></a>
+                                                <a href="javascript:void(0);" onclick="editMembers({{i.id}})"><button type="button" class="btn btn-sm btn-primary">项目成员</button></a>
+                                            </td>
+                                        </tr>
+                                    {%endfor%}
+                                </tbody>
+                                </table>
+                            </div>
+							</div>
+                    </div>
+
+                    <!-----------add pro------------->
+                    <div class="modal fade" id="myModal-addPro" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <form class="form-horizontal" method="POST" action="/pro/add/" id="addProForm">
+                       <div class="modal-dialog">
+                         <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal"
+                               aria-hidden="true">×
+                            </button>
+                            <h4 class="modal-title" id="myModalLabel">
+                               新建用户
+                            </h4>
+                         </div>
+                          <div class="modal-body">
+                                <div class="form-group">
+                                    <label for="pro_name" class="col-sm-2 control-label">项目名称</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" name="pro_name" class="form-control" id="pro_name" required placeholder="项目名称">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="pro_desc" class="col-sm-2 control-label">描述</label>
+                                    <div class="col-sm-10">
+                                        <textarea class="form-control" name="pro_desc" id="pro_desc" rows="3" placeholder="项目描述"></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="c_cpu" class="col-sm-2 control-label">CPU数量</label>
+                                    <div class="col-sm-10">
+                                        <select class="form-control" name="c_cpu" required id="c_cpu">
+                                            {% for n in range20 %}
+                                                <option value="{{ n }}">{{ n }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="c_memory" class="col-sm-2 control-label">内存</label>
+                                    <div class="col-sm-10">
+                                        <select class="form-control" name="c_memory" required id="c_memory">
+                                            {% for n in range10 %}
+                                                <option value="{{ n }}">{{ n }}G</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                              <!--
+                                <div class="form-group">
+                                    <label for="c_disk" class="col-sm-2 control-label">硬盘数量</label>
+                                    <div class="col-sm-10">
+                                        <select class="form-control" name="c_disk" required id="c_disk">
+                                            {% for n in range10 %}
+                                                <option value="{{ n }}">{{ n }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="c_disk" class="col-sm-2 control-label">空间配额</label>
+                                    <div class="col-sm-10">
+                                        <div class="input-group">
+                                          <input type="text" name="c_space" class="form-control" value="100" required id="c_space" >
+                                          <div class="input-group-addon">G</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                -->
+                                <div class="form-group">
+                                    <label for="admin_id" class="col-sm-2 control-label">负责人</label>
+                                    <div class="col-sm-10">
+                                        <select class="form-control" name="admin_id" required id="admin_id">
+                                            {% for n in userList %}
+                                                <option value="{{ n.id }}">{{ n.username }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                            <button type="submit" class="btn btn-primary">确定</button>
+                         </div>
+                        </div>
+                      </div>
+                      </form>
+                    </div>
+
+
+                    <!-----------edit pro------------->
+                    <div class="modal fade" id="myModal-editPro" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <form class="form-horizontal" method="POST" action="/pro/add/" id="editProForm">
+                       <div class="modal-dialog">
+                         <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal"
+                               aria-hidden="true">×
+                            </button>
+                            <h4 class="modal-title" id="myModalLabel">
+                               项目编辑
+                            </h4>
+                         </div>
+                          <div class="modal-body">
+                                <div class="form-group">
+                                    <label for="pro_name" class="col-sm-2 control-label">项目名称</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" name="pro_name" class="form-control" id="pro_name" disabled >
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="pro_desc" class="col-sm-2 control-label">描述</label>
+                                    <div class="col-sm-10">
+                                        <textarea class="form-control" name="pro_desc" id="pro_desc" rows="3" placeholder="项目描述"></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="c_cpu" class="col-sm-2 control-label">CPU数量</label>
+                                    <div class="col-sm-10">
+                                        <select class="form-control" name="c_cpu" required id="c_cpu">
+                                            {% for n in range20 %}
+                                                <option value="{{ n }}">{{ n }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="c_memory" class="col-sm-2 control-label">内存</label>
+                                    <div class="col-sm-10">
+                                        <select class="form-control" name="c_memory" required id="c_memory">
+                                            {% for n in range10 %}
+                                                <option value="{{ n }}">{{ n }}G</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                              <!--
+                                <div class="form-group">
+                                    <label for="c_disk" class="col-sm-2 control-label">硬盘数量</label>
+                                    <div class="col-sm-10">
+                                        <select class="form-control" name="c_disk" required id="c_disk">
+                                            {% for n in range10 %}
+                                                <option value="{{ n }}">{{ n }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="c_disk" class="col-sm-2 control-label">空间配额</label>
+                                    <div class="col-sm-10">
+                                        <div class="input-group">
+                                          <input type="text" name="c_space" class="form-control" value="100" required id="c_space" >
+                                          <div class="input-group-addon">G</div>
+                                        </div>
+                                    </div>
+                                </div-->
+                                <div class="form-group">
+                                    <label for="admin_id" class="col-sm-2 control-label">负责人</label>
+                                    <div class="col-sm-10">
+                                        <select class="form-control" name="admin_id" required id="admin_id">
+                                            {% for n in userList %}
+                                                <option value="{{ n.id }}">{{ n.username }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                            <button type="submit" class="btn btn-primary">确定</button>
+                         </div>
+                        </div>
+                      </div>
+                        <input te="hidden" name="pro_id" id="pro_id" />
+                      </form>
+                    </div>
+
+                    <!-----------edit member------------->
+                    <div class="modal fade" id="myModal-editMember" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <form class="form-horizontal" method="POST" action="/pro/editMember/" id="editMemberForm">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                    <h4 class="modal-title" id="myModalLabel">
+                                    项目成员编辑
+                                    </h4>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label for="pro_name" class="col-sm-2 control-label">项目名称</label>
+                                        <div class="col-sm-10" id="pro_name" style="padding-top:10px;">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="pro_name" class="col-sm-2 control-label">项目成员</label>
+                                        <div class="col-sm-10" style="padding-top:10px;" id="choosePos">
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                    <button type="button" class="btn btn-primary" onclick="sendReq('/pro/editProMembers/'+$('#editMemberForm #pro_id').val()+'/',$('#editMemberForm').serialize(),'post');">确定</button>
+                                </div>
+                            </div>
+                        </div>
+                        <input te="hidden" name="pro_id" id="pro_id" />
+                    </form>
+                    </div>
+	{% endblock %}
+    {% block appjs %}
+    <script src="/assets/global/scripts/pro_manage.js" ></script>
+    {% endblock %}

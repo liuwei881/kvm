@@ -1,0 +1,222 @@
+{% extends "main.html" %}
+{% block content %}
+<div class="portlet box blue">
+                        <div class="portlet-title">
+                            <div class="caption">
+                                <i class="fa fa-cogs"></i>用户列表
+                            </div>
+                            <div class="tools">
+                                <a href="#portlet-config" data-toggle="modal" class="glyphicon glyphicon-plus" data-original-title="" title="">
+                                </a>
+                                {%ifequal username 'admin' %}
+                                <button type="button" class="btn red-haze btn-sm dropdown-toggle" data-toggle="modal" data-target="#myModal-add" data-close-others="true" >新建用户</button>
+                                {%endifequal%}
+                            </div>
+                        </div>
+                        <div class="portlet-body">
+                            <div>
+                                <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>用户名</th>
+                                    <th>邮箱</th>
+                                    <th>帐号级别</th>
+                                    <th>状态</th>
+                                    <th>上次登录时间</th>
+                                    <th>操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                     {%for i in list%}
+                                        <tr>
+                                            <td>{{i.id}}</td>
+                                            <td>{{i.username}}</td>
+                                            <td>{{i.email}}</td>
+                                            <td>{% if i.is_superuser %}管理员{% else %}普通帐号{% endif %}</td>
+                                            <td>{% if i.is_active %}正常{% else %}禁用{% endif %}</td><td>{% if i.last_login %}{{i.last_login}}{% endif %}</td>
+                                            <td>
+                                                <a href="javascript:void(0);" onclick="editUser({{i.id}})"><button type="button" class="btn  btn-sm btn-primary">编辑</button></a>
+                                                <a href="javascript:void(0);" onclick="showUserProInfo({{i.id}})"><button type="button" class="btn  btn-sm btn-primary">项目绑定</button></a>
+                                                {% if i.is_active %}
+                                                    <a href="javascript:void(0);" onclick="sendReq('/users/changeStatus/',{'id':{{i.id}},'status':'0'},'get')"><button type="button" class="btn  btn-sm red-haze">禁用</button></a>
+                                                {% else %}
+                                                    <a href="javascript:void(0);" onclick="sendReq('/users/changeStatus/',{'id':{{i.id}},'status':1},'get')"><button type="button" class="btn  btn-sm red-haze">启用</button></a>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                    {%endfor%}
+                                </tbody>
+                                </table>
+                            </div>
+							</div>
+                    </div>
+
+
+                    <div class="modal fade" id="myModal-add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                         <form class="form-horizontal" method="POST" action="/users/add/" id="userForm">
+                       <div class="modal-dialog">
+                         <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal"
+                               aria-hidden="true">×
+                            </button>
+                            <h4 class="modal-title" id="myModalLabel-add">
+                               新建用户
+                            </h4>
+                         </div>
+                          <div class="modal-body">
+                                    <div class="form-group">
+                                        <label for="inputEmail3" class="col-sm-2 control-label">用户名</label>
+                                        <div class="col-sm-10">
+                                            <input type="username" name="username" class="form-control" id="username" required placeholder="Username">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputPassword3" class="col-sm-2 control-label">密码</label>
+                                        <div class="col-sm-10">
+                                            <input type="password" name="password" class="form-control" id="password" required placeholder="Password">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputPassword3" class="col-sm-2 control-label">确认密码</label>
+                                        <div class="col-sm-10">
+                                            <input type="password" name="confirm_password" class="form-control" id="confirm_password" required placeholder="Repeat Password">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputPassword3" class="col-sm-2 control-label">邮箱</label>
+                                        <div class="col-sm-10">
+                                            <input type="email" class="form-control" name="email" id="email" placeholder="Email">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputPassword3" class="col-sm-2 control-label">状态</label>
+                                        <div class="col-sm-10">
+                                            <select class="form-control" name="is_active">
+                                            <option value="1">正常</option>
+                                            <option value="0">禁用</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <!--<div class="form-group">-->
+                                        <!--<label for="inputPassword3" class="col-sm-2 control-label">参与项目</label>-->
+                                        <!--<div class="col-sm-10">-->
+                                            <!--<input type="input" class="form-control">-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+
+                         </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                            <button type="submit" class="btn btn-primary" id="subAddUser">确定</button>
+                         </div>
+                        </div>
+                      </div>
+                      </form>
+                    </div>
+
+
+                    <!----编辑---->
+                    <div class="modal fade" id="myModal-edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                         <form class="form-horizontal" method="POST" action="/users/edit/" id="userFormEdit">
+                       <div class="modal-dialog">
+                         <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal"
+                               aria-hidden="true">×
+                            </button>
+                            <h4 class="modal-title" id="myModalLabel">
+                               编辑用户信息
+                            </h4>
+                         </div>
+                          <div class="modal-body">
+                                    <div class="form-group">
+                                        <label for="inputEmail3" class="col-sm-2 control-label">用户名</label>
+                                        <div class="col-sm-10" >
+                                            <input type="input" class="form-control" id="username" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputPassword3" class="col-sm-2 control-label">密码</label>
+                                        <div class="col-sm-10">
+                                            <input type="password" name="password" class="form-control" id="passwordEdit"  placeholder="不修改密码时请勿输入">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputPassword3" class="col-sm-2 control-label">确认密码</label>
+                                        <div class="col-sm-10">
+                                            <input type="password" name="repassword" class="form-control" id="repassword"  placeholder="不修改密码时请勿输入">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputPassword3" class="col-sm-2 control-label">邮箱</label>
+                                        <div class="col-sm-10">
+                                            <input type="email" class="form-control" name="email" id="email" placeholder="Email">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputPassword3" class="col-sm-2 control-label">状态</label>
+                                        <div class="col-sm-10">
+                                            <select class="form-control" name="is_active" id="is_active">
+                                            <option value="1">正常</option>
+                                            <option value="0">禁用</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <!--<div class="form-group">-->
+                                        <!--<label for="inputPassword3" class="col-sm-2 control-label">参与项目</label>-->
+                                        <!--<div class="col-sm-10">-->
+                                            <!--<input type="input" class="form-control">-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+
+                         </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                            <button type="submit" class="btn btn-primary" id="subEditUser">确定</button>
+                         </div>
+                        </div>
+                      </div>
+                             <input type="hidden" name="id" id="userid" value="" />
+                      </form>
+                    </div>
+
+                    <!----编辑用户的项目信息---->
+                    <div class="modal fade" id="myModal-editPro" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <form class="form-horizontal" method="POST" action="/users/editUserProInfo/" id="userProFormEdit">
+                        <div class="modal-dialog">
+                         <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            <h4 class="modal-title" id="myModalLabel">
+                               编辑用户项目信息
+                            </h4>
+                         </div>
+                          <div class="modal-body">
+                                <div class="form-group">
+                                    <label for="username" class="col-sm-2 control-label">用户名</label>
+                                    <div class="col-sm-10"  id="username" style="padding-top:10px;">
+
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">参与项目</label>
+                                    <div class="col-sm-10" style="padding-top:10px;padding-left:40px;" id="proHtml">
+
+                                    </div>
+                                </div>
+                         </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                            <button type="button" class="btn btn-primary" id="saveUserProInfo">确定</button>
+                         </div>
+                        </div>
+                      </div>
+                             <input type="hidden" name="user_id" id="user_id"/>
+                      </form>
+                    </div>
+	{% endblock %}
+    {% block appjs %}
+        <script src="/assets/global/scripts/users.js"></script>
+    {% endblock %}

@@ -1,0 +1,160 @@
+/usr/local/lib/python2.7/site-packages/celery-3.1.18-py2.7.egg/celery/platforms.py:766: RuntimeWarning: You are running the worker with superuser privileges, which is
+absolutely not recommended!
+
+Please specify a different user using the -u option.
+
+User information: uid=0 euid=0 gid=0 egid=0
+
+  uid=uid, euid=euid, gid=gid, egid=egid,
+
+/usr/local/lib/python2.7/site-packages/celery-3.1.18-py2.7.egg/celery/apps/worker.py:161: CDeprecationWarning: 
+Starting from version 3.2 Celery will refuse to accept pickle by default.
+
+The pickle serializer is a security concern as it may give attackers
+the ability to execute any command.  It's important to secure
+your broker from unauthorized access when using pickle, so we think
+that enabling pickle should require a deliberate action and not be
+the default choice.
+
+If you depend on pickle then you should set a setting to disable this
+warning and to be sure that everything will continue working
+when you upgrade to Celery 3.2::
+
+    CELERY_ACCEPT_CONTENT = ['pickle', 'json', 'msgpack', 'yaml']
+
+You must only enable the serializers that you will actually use.
+
+
+  warnings.warn(CDeprecationWarning(W_PICKLE_DEPRECATED))
+
+[2015-07-30 16:55:50,657: WARNING/MainProcess] /usr/local/lib/python2.7/site-packages/celery-3.1.18-py2.7.egg/celery/apps/worker.py:161: CDeprecationWarning: 
+Starting from version 3.2 Celery will refuse to accept pickle by default.
+
+The pickle serializer is a security concern as it may give attackers
+the ability to execute any command.  It's important to secure
+your broker from unauthorized access when using pickle, so we think
+that enabling pickle should require a deliberate action and not be
+the default choice.
+
+If you depend on pickle then you should set a setting to disable this
+warning and to be sure that everything will continue working
+when you upgrade to Celery 3.2::
+
+    CELERY_ACCEPT_CONTENT = ['pickle', 'json', 'msgpack', 'yaml']
+
+You must only enable the serializers that you will actually use.
+
+
+  warnings.warn(CDeprecationWarning(W_PICKLE_DEPRECATED))
+
+[2015-07-30 16:55:50,672: INFO/MainProcess] Connected to amqp://guest:**@127.0.0.1:5672//
+[2015-07-30 16:55:50,678: INFO/MainProcess] mingle: searching for neighbors
+[2015-07-30 16:55:51,683: INFO/MainProcess] mingle: all alone
+/usr/local/lib/python2.7/site-packages/django_celery-3.1.16-py2.7.egg/djcelery/loaders.py:136: UserWarning: Using settings.DEBUG leads to a memory leak, never use this setting in production environments!
+  warn('Using settings.DEBUG leads to a memory leak, never '
+
+[2015-07-30 16:55:51,698: WARNING/MainProcess] /usr/local/lib/python2.7/site-packages/django_celery-3.1.16-py2.7.egg/djcelery/loaders.py:136: UserWarning: Using settings.DEBUG leads to a memory leak, never use this setting in production environments!
+  warn('Using settings.DEBUG leads to a memory leak, never '
+
+[2015-07-30 16:55:51,698: WARNING/MainProcess] celery@localhost.localdomain ready.
+[2015-07-30 17:53:59,354: INFO/MainProcess] Received task: webkvm.tasks.run_cmd[94fe687c-f18a-41ef-ac6c-7c9a2c84db6a]
+[2015-07-30 17:53:59,366: ERROR/MainProcess] Task webkvm.tasks.run_cmd[94fe687c-f18a-41ef-ac6c-7c9a2c84db6a] raised unexpected: NameError("global name 'h' is not defined",)
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/site-packages/celery-3.1.18-py2.7.egg/celery/app/trace.py", line 240, in trace_task
+    R = retval = fun(*args, **kwargs)
+  File "/usr/local/lib/python2.7/site-packages/celery-3.1.18-py2.7.egg/celery/app/trace.py", line 438, in __protected_call__
+    return self.run(*args, **kwargs)
+  File "/data/py/zxrCloud/webkvm/tasks.py", line 7, in run_cmd
+    result_cmd = "python /data/py/zxrCloud/shell/create_vir.py  %s %s %s" % (h.hostname,vir_name, cpu)
+NameError: global name 'h' is not defined
+[2015-07-30 17:54:04,529: INFO/MainProcess] Received task: webkvm.tasks.run_cmd[994f4ad3-a02b-4a7c-a9a2-7f8a40dad77a]
+[2015-07-30 17:54:04,539: ERROR/MainProcess] Task webkvm.tasks.run_cmd[994f4ad3-a02b-4a7c-a9a2-7f8a40dad77a] raised unexpected: NameError("global name 'h' is not defined",)
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/site-packages/celery-3.1.18-py2.7.egg/celery/app/trace.py", line 240, in trace_task
+    R = retval = fun(*args, **kwargs)
+  File "/usr/local/lib/python2.7/site-packages/celery-3.1.18-py2.7.egg/celery/app/trace.py", line 438, in __protected_call__
+    return self.run(*args, **kwargs)
+  File "/data/py/zxrCloud/webkvm/tasks.py", line 7, in run_cmd
+    result_cmd = "python /data/py/zxrCloud/shell/create_vir.py  %s %s %s" % (h.hostname,vir_name, cpu)
+NameError: global name 'h' is not defined
+/usr/local/lib/python2.7/site-packages/celery-3.1.18-py2.7.egg/celery/platforms.py:766: RuntimeWarning: You are running the worker with superuser privileges, which is
+absolutely not recommended!
+
+Please specify a different user using the -u option.
+
+User information: uid=0 euid=0 gid=0 egid=0
+
+  uid=uid, euid=euid, gid=gid, egid=egid,
+
+/usr/local/lib/python2.7/site-packages/celery-3.1.18-py2.7.egg/celery/apps/worker.py:161: CDeprecationWarning: 
+Starting from version 3.2 Celery will refuse to accept pickle by default.
+
+The pickle serializer is a security concern as it may give attackers
+the ability to execute any command.  It's important to secure
+your broker from unauthorized access when using pickle, so we think
+that enabling pickle should require a deliberate action and not be
+the default choice.
+
+If you depend on pickle then you should set a setting to disable this
+warning and to be sure that everything will continue working
+when you upgrade to Celery 3.2::
+
+    CELERY_ACCEPT_CONTENT = ['pickle', 'json', 'msgpack', 'yaml']
+
+You must only enable the serializers that you will actually use.
+
+
+  warnings.warn(CDeprecationWarning(W_PICKLE_DEPRECATED))
+
+[2015-08-04 09:24:52,778: WARNING/MainProcess] /usr/local/lib/python2.7/site-packages/celery-3.1.18-py2.7.egg/celery/apps/worker.py:161: CDeprecationWarning: 
+Starting from version 3.2 Celery will refuse to accept pickle by default.
+
+The pickle serializer is a security concern as it may give attackers
+the ability to execute any command.  It's important to secure
+your broker from unauthorized access when using pickle, so we think
+that enabling pickle should require a deliberate action and not be
+the default choice.
+
+If you depend on pickle then you should set a setting to disable this
+warning and to be sure that everything will continue working
+when you upgrade to Celery 3.2::
+
+    CELERY_ACCEPT_CONTENT = ['pickle', 'json', 'msgpack', 'yaml']
+
+You must only enable the serializers that you will actually use.
+
+
+  warnings.warn(CDeprecationWarning(W_PICKLE_DEPRECATED))
+
+[2015-08-04 09:24:52,794: INFO/MainProcess] Connected to amqp://guest:**@127.0.0.1:5672//
+[2015-08-04 09:24:52,800: INFO/MainProcess] mingle: searching for neighbors
+[2015-08-04 09:24:53,805: INFO/MainProcess] mingle: all alone
+/usr/local/lib/python2.7/site-packages/django_celery-3.1.16-py2.7.egg/djcelery/loaders.py:136: UserWarning: Using settings.DEBUG leads to a memory leak, never use this setting in production environments!
+  warn('Using settings.DEBUG leads to a memory leak, never '
+
+[2015-08-04 09:24:53,811: WARNING/MainProcess] /usr/local/lib/python2.7/site-packages/django_celery-3.1.16-py2.7.egg/djcelery/loaders.py:136: UserWarning: Using settings.DEBUG leads to a memory leak, never use this setting in production environments!
+  warn('Using settings.DEBUG leads to a memory leak, never '
+
+[2015-08-04 09:24:53,811: WARNING/MainProcess] celery@localhost.localdomain ready.
+[2015-08-04 09:28:40,214: INFO/MainProcess] Received task: manager_kvm.tasks.create_vm_win[40d6e8f9-6423-4a49-bac1-a56d096b0a26]
+[2015-08-04 09:29:20,339: INFO/MainProcess] Task manager_kvm.tasks.create_vm_win[40d6e8f9-6423-4a49-bac1-a56d096b0a26] succeeded in 40.123677636s: ''
+[2015-08-04 09:31:48,095: INFO/MainProcess] Received task: manager_kvm.tasks.create_vm_linux[9a8d755e-1785-42ea-9e81-d07483979268]
+[2015-08-04 09:31:57,147: INFO/MainProcess] Task manager_kvm.tasks.create_vm_linux[9a8d755e-1785-42ea-9e81-d07483979268] succeeded in 9.05164274s: ''
+[2015-08-04 15:15:22,866: INFO/MainProcess] Received task: manager_kvm.tasks.create_vm_win[af3eba9c-276f-457f-9575-fc80d5e0bc7f]
+[2015-08-04 15:15:59,879: INFO/MainProcess] Task manager_kvm.tasks.create_vm_win[af3eba9c-276f-457f-9575-fc80d5e0bc7f] succeeded in 37.011682007s: ''
+[2015-08-04 15:22:04,398: INFO/MainProcess] Received task: manager_kvm.tasks.create_vm_linux[98c5dcb3-017b-4a53-860c-c945f0c37729]
+[2015-08-04 15:22:56,768: INFO/MainProcess] Task manager_kvm.tasks.create_vm_linux[98c5dcb3-017b-4a53-860c-c945f0c37729] succeeded in 52.369805907s: ''
+[2015-08-04 15:23:40,746: INFO/MainProcess] Received task: manager_kvm.tasks.create_vm_linux[e199a90e-2f11-4f7a-aaba-befc9fdf29ac]
+[2015-08-04 15:23:47,378: INFO/MainProcess] Task manager_kvm.tasks.create_vm_linux[e199a90e-2f11-4f7a-aaba-befc9fdf29ac] succeeded in 6.630358157s: ''
+[2015-08-04 15:25:47,453: INFO/MainProcess] Received task: manager_kvm.tasks.create_vm_linux[2f0e4fe0-e3ce-47e2-8b4a-0d0d66c9f7af]
+[2015-08-04 15:25:54,011: INFO/MainProcess] Task manager_kvm.tasks.create_vm_linux[2f0e4fe0-e3ce-47e2-8b4a-0d0d66c9f7af] succeeded in 6.557682111s: ''
+[2015-08-04 15:33:28,609: INFO/MainProcess] Received task: manager_kvm.tasks.create_vm_linux[a0e665d5-989a-4d50-a245-0dbe02260629]
+[2015-08-04 15:33:36,124: INFO/MainProcess] Task manager_kvm.tasks.create_vm_linux[a0e665d5-989a-4d50-a245-0dbe02260629] succeeded in 7.51331703401s: ''
+[2015-08-04 15:41:13,097: INFO/MainProcess] Received task: manager_kvm.tasks.create_vm_linux[fee027b4-e7b8-4dd4-9c76-ba31851423b8]
+[2015-08-04 15:41:21,048: INFO/MainProcess] Task manager_kvm.tasks.create_vm_linux[fee027b4-e7b8-4dd4-9c76-ba31851423b8] succeeded in 7.94903870999s: ''
+[2015-08-04 15:42:46,708: INFO/MainProcess] Received task: manager_kvm.tasks.create_vm_win[3d9715ec-2ed4-41f8-bb35-1b4c5f663dbf]
+[2015-08-04 15:46:16,490: INFO/MainProcess] Task manager_kvm.tasks.create_vm_win[3d9715ec-2ed4-41f8-bb35-1b4c5f663dbf] succeeded in 209.780443296s: ''
+[2015-08-04 15:53:34,061: INFO/MainProcess] Received task: manager_kvm.tasks.create_vm_win[8c21439f-34b5-45c0-b505-d34369ef5638]
+[2015-08-04 15:54:25,311: INFO/MainProcess] Task manager_kvm.tasks.create_vm_win[8c21439f-34b5-45c0-b505-d34369ef5638] succeeded in 51.250308443s: ''
+[2015-08-05 08:36:58,781: INFO/MainProcess] Received task: manager_kvm.tasks.create_vm_win[da2a899b-5dee-4120-bef3-af5601608e2e]
+[2015-08-05 08:41:48,411: INFO/MainProcess] Task manager_kvm.tasks.create_vm_win[da2a899b-5dee-4120-bef3-af5601608e2e] succeeded in 289.628729742s: ''

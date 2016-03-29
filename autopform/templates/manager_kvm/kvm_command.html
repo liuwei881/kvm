@@ -1,0 +1,90 @@
+{% extends "main.html" %}
+{% block content %}
+
+     <form action="/manager_kvm/addHost/"  method="get" class="form-horizontal" role="form">
+        <div class="form-group">
+     		<label for="kvm_name" class="col-sm-2 control-label">请选择一台宿主机</label>
+        	<div class="col-sm-4">
+            <select type="text" name="kvm_name" class="form-control" id="kvm_name" placeholder="col-sm-4" required>
+                <option>请选择一台宿主机</option>
+                <option>192.168.60.150</option>
+                <option>192.168.60.214</option>
+            </select>
+        </div>
+    </div>
+        <div class="form-group">
+            <label for="vir_name" class="col-sm-2 control-label">请输入虚拟机名称</label>
+              <div class="col-sm-4">
+            <input type="text" name="vir_name" class="form-control" id="vir_name" 
+                placeholder="请输入虚拟机名称"  required>
+              </div>
+       </div>
+
+<!--       <div class="form-group">
+                 <label for="vir_os" class="col-sm-2 control-label">请选择操作系统</label>
+                <div class="col-sm-4">
+            <select type="text" name="vir_os" class="form-control" id="vir_os" placeholder="col-sm-4" required>
+                <option>请选择操作系统</option>
+                <option>win7</option>
+                <option>centos6.4</option>
+            </select>
+        </div>
+    </div>-->
+
+<!--      <div class="form-group">
+                 <label for="vir_memory" class="col-sm-2 control-label">请选择系统内存</label>
+                <div class="col-sm-4">
+            <select type="text" name="vir_memory" class="form-control" id="vir_memory" placeholder="col-sm-4" required>
+                <option>请选择系统内存</option>
+                <option>2G</option>
+                <option>4G</option>
+            </select>
+        </div>
+      </div>
+-->
+
+<!--      <div class="form-group">
+                 <label for="vir_disk" class="col-sm-2 control-label">请选择硬盘大小</label>
+                <div class="col-sm-4">
+            <select type="text" name="vir_disk" class="form-control" id="vir_disk" placeholder="col-sm-4" required> 
+                <option>请选择硬盘大小</option>
+                <option>40G</option>
+                <option>80G</option>
+            </select>
+        </div>
+      </div>
+-->
+      <div class="form-group">
+                 <label for="vir_cpu" class="col-sm-2 control-label">请选择cpu核数</label>
+                <div class="col-sm-4">
+            <select type="text" name="vir_cpu" class="form-control" id="vir_cpu" placeholder="col-sm-4" required>
+                <option>请选则cpu核数</option>
+                <option>2</option>
+                <option>4</option>
+            </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+        <button type="submit" class="btn btn-primary">创建</button>
+      </div>
+ </form>
+      </div>
+   </div>
+    </div>
+  </div>
+</div>
+       </td>
+        </tr>
+    </tbody>
+  </table>
+</div>
+
+<p>运行结果
+<textarea class="form-control" clos="10" rows="2">
+{{result}}
+</textarea>
+</p>
+</div>
+{% endblock %}

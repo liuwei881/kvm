@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<!-- saved from url=(0050)http://getbootstrap.com/examples/starter-template/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" id="page">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="http://getbootstrap.com/favicon.ico">
+    <title>zcloud运维平台</title>
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+  </head>
+  <body>
+   <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div>
+        <div>
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span>手机版</span>
+          </button>
+          <a href="/">zcloud运维平台</a>
+        </div>
+        
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+	    <li><a href="/webkvm/">管理kvm宿主机</a></li>
+	    <li><a href="/webkvm/manager_kvm/">管理kvm虚拟机</a></li>
+            <li><a href="/logout/">登出</a></li>
+          </ul>
+        </div>
+      </div>
+   </nav>
+<body>
+   <br><br><br><br><br><br>
+   {% block content %}
+   {% endblock %}
+   {% block footer %}
+   <p>谢谢观赏</p>
+   {% endblock %}
+</body>
+    <script src="/static/js/jquery.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>   
+</body></html>

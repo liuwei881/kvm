@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+<script type="text/javascript" src="http://cdn.hcharts.cn/jquery/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="http://cdn.hcharts.cn/highcharts/highcharts.js"></script>
+<script type="text/javascript" src="http://cdn.hcharts.cn/highcharts/exporting.js"></script>
+<script>
+$(function () {
+    $('#container').highcharts({
+        chart: {
+            type: 'area'
+        },
+        title: {
+            text: 'cpu信息'
+        },
+        subtitle: {
+            text: '单位(%)'
+        },
+        xAxis: {
+            labels: {
+                formatter: function() {
+                    return this.value;
+                }
+            }
+        },
+        yAxis: {
+            title: {
+                text: '使用率'
+            },
+            labels: {
+                formatter: function() {
+                    return this.value +'%';
+                }
+            }
+        },
+        tooltip: {
+            pointFormat: '{series.name} produced <b>{point.y:,.0f}</b><br/>warheads in {point.x}'
+        },
+        plotOptions: {
+            area: {
+                pointStart: 19,
+                marker: {
+                    enabled: false,
+                    symbol: 'circle',
+                    radius: 2,
+                    states: {
+                        hover: {
+                            enabled: true
+                        }
+                    }
+                }
+            }
+        },
+        series: [{
+            name: 'cpu idle',
+            data: [null, null, 6 , 11, 32,110]}, {
+            name: 'cpu user',
+            data: [null, null,null,null,null,5, 25, 50]},
+{
+            name: 'cpu nice',
+            data: [null,5,25,60]},
+{
+    		name: 'cpu system',
+            data: [null,null,5,70,70]},
+{
+            name: 'cpu iowait',
+            data: [null,null,100,80,80,100]},
+{
+            name: 'cpu irq',
+            data: [null,null,200,50,300]},
+{
+    		name: 'cpu softirq',
+    		data: [null,null,null,400,600,500]},
+                
+     ]
+    });
+});
+</script>
+<div id="container" style="min-width:700px;height:400px"></div> 
+</head>
+</html>

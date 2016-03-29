@@ -1,0 +1,160 @@
+{% extends "main.html" %}
+{% block content %}
+<div class="portlet box blue">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-cogs"></i>创建云硬盘
+        </div>
+        <div class="tools">
+            <a href="#portlet-config" data-toggle="modal" class="glyphicon glyphicon-plus" data-original-title="" title="">
+            </a>
+            <button class="btn red-haze btn-sm" data-toggle="modal" data-target="#myModal">创建</button>
+        </div>
+        {%ifequal username 'admin'%}
+        <div>
+            <form action="/clouddisk/search_clouddisk/" method="GET" class="navbar-form navbar-left" role="search">
+                <div class="form-group">
+                    <div class="col-sm-2">
+                        <input type="text" name="q" class="form-control" id="q" placeholder="云硬盘名称">
+                    </div>
+                </div>
+                    <button type="submit" class="btn red-haze btn-sm">搜索</button>
+            </form>
+        </div>
+        {%endifequal%}
+    </div>
+
+    <div class="portlet-body">
+        <table class="table table-bordered">
+            <tbody>
+            <tr>
+                <th>编号</th>
+                <th>云硬盘名称</th>
+                <th>云硬盘大小</th>
+                <th>挂载位置</th>
+                <th>服务器ip</th>
+                <th>所属项目</th>
+            </tr>
+            {%for i in h%}
+            <tr>
+                <td>{{i.id}}</td>
+                <td>{{i.image_name}}</td>
+                <td>{{i.size}}</td>
+                <td>{{i.mount_location}}</td>
+                <td>{{i.ip}}</td>
+                <td>{{i.projects_name}}</td>
+                <td>
+                    <div class="btn-group">
+                        <button type="button" class="btn red-haze btn-sm dropdown-toggle" data-toggle="dropdown" data-close-others="true">
+                            <span class="hidden-sm hidden-xs">操作&nbsp;</span>
+                            <i class="fa fa-angle-down"></i>
+                        </button>
+                        {% ifequal i.mount_location '' %}
+                        <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <a href="/clouddisk/mountclouddisk/{{i.id}}">
+                                <i class="icon-docs"></i> 云硬盘挂载 </a>
+                            </li>
+                            <li>
+                                <a href="/clouddisk/umountdisk/{{i.id}}">
+                                    <i class="icon-docs"></i> 云硬盘卸载 </a>
+                            </li>
+                            <li>
+                                <a href="/clouddisk/editsnap/{{i.id}}">
+                                    <i class="icon-tag"></i> 创建云硬盘快照 </a>
+                            </li>
+                            <li>
+                                <a href="/clouddisk/showsnap/{{i.id}}/">
+                                    <i class="icon-tag"></i> 查看云硬盘快照 </a>
+                            </li>
+                            <li>
+                                <a href="/clouddisk/delimage/{{i.id}}/">
+                                    <i class="icon-tag"></i> 删除云硬盘 </a>
+                            </li>
+                        </ul>
+                        {% else %}
+                        <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <a href="/clouddisk/umountdisk/{{i.id}}">
+                                    <i class="icon-docs"></i> 云硬盘卸载 </a>
+                            </li>
+                            <li>
+                                <a href="/clouddisk/editsnap/{{i.id}}">
+                                    <i class="icon-tag"></i> 创建云硬盘快照 </a>
+                            </li>
+                            <li>
+                                <a href="/clouddisk/showsnap/{{i.id}}/">
+                                    <i class="icon-tag"></i> 查看云硬盘快照 </a>
+                            </li>
+                            <li>
+                                <a href="/clouddisk/delimage/{{i.id}}/">
+                                    <i class="icon-tag"></i> 删除云硬盘 </a>
+                            </li>
+                        </ul>
+                        {%endifequal%}
+                    </div>
+                </td>
+            </tr>
+            {%endfor%}
+            </tbody>
+        </table>
+    </div>
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel">
+                            创建云镜像
+                        </h4>
+                    </div>
+                    <div>
+                        <form action="/clouddisk/add/"  method="get" class="form-horizontal" id="hostForm" role="form">
+                            <div class="form-group">
+                                        <label for="image_name" class="col-sm-4 control-label">请输入镜像名称</label>
+                                        <div class="col-sm-4">
+                                            <input type="image_name" name="image_name" class="form-control" id="image_name" required placeholder="image_name">
+                                        </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="size" class="col-sm-4 control-label">请选择镜像大小</label>
+                                <div class="col-sm-4">
+                                    <select type="text" name="size" class="form-control" id="size" required>
+                                        <option>请选择镜像大小</option>
+                                        <option>500G</option>
+                                        <option>1024G</option>
+                                        <option>2048G</option>
+                                        <option>10240G</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn red-haze btn-sm" data-dismiss="modal">关闭</button>
+                                <a href="javascript:void(0);" onclick="sendReq('/clouddisk/add/',{'image_name':$('#image_name').val(),'size':$('#size').val()},'get')"><button type="button" class="btn red-haze btn-sm" data-toggle="modal" aria-hidden="true">
+                                    创建云镜像
+                                </button></a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block appjs %}
+<script>
+$(function() {
+            $("#hostForm").validate({
+                debug: true,
+                errorClass: "alert-danger", //默认为错误的样式类为：error
+                focusInvalid: true, //当为false时，验证无效时，没有焦点响应
+                onkeyup: false,
+                submitHandler: function(form){   //表单提交句柄,为一回调函数，带一个参数：form
+                    sendReq('/clouddisk/add/',$('#hostForm').serialize(),'get');
+                                             },
+                                        });
+              })
+</script>
+{% endblock %}

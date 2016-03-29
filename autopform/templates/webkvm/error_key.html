@@ -1,0 +1,23 @@
+{% extends "main.html" %}
+{% block content %}
+<div class="portlet box blue">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-cogs"></i>创建密钥错误
+        </div>
+    </div>
+
+    <div class="portlet-body">
+        <table class="table table-bordered">
+            <tbody>
+           密钥不能重名,请重新创建.
+            </tbody>
+        </table>
+    </div>
+    {%ifequal username 'admin' %}
+    <a href="/webkvm/show_key"><button class="btn red-haze btn-sm">返回</button></a>
+    {%else%}
+    <a href="/webkvm/show_key/{{pro.id}}/"><button class="btn red-haze btn-sm">返回</button></a>
+    {%endifequal%}
+</div>
+{% endblock %}

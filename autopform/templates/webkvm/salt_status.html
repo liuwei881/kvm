@@ -1,0 +1,25 @@
+{% extends "autopform/base.html" %}
+{% block content %}
+
+<form action="/join_salt/"  method="get" class="form-horizontal" role="form">
+   <div class="form-group">
+       <label for="ipname" class="col-sm-2 control-label">请选择宿主机ip</label>
+           <div class="col-sm-2">
+              <input type="text" name="hostname" class="form-control" id="ipname" placeholder="hostname">
+           </div>
+   </div>
+   <div class="form-group">
+           <div class="col-sm-offset-2 col-sm-10">
+               <button type="submit" class="btn btn-default">加入salt</button>
+           </div>
+   </div>
+</form>
+<br>
+<p>运行结果
+<textarea class="form-control" clos="20" rows="5">
+{{hostname}}
+{{result}}
+</textarea>
+</p>
+
+{% endblock %}

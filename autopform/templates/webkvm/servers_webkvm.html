@@ -1,0 +1,134 @@
+{% extends "main.html" %}
+{% block content %}
+<div class="portlet box blue">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-cogs"></i>服务器信息统计
+        </div>
+        <div class="tools">
+            <a href="#portlet-config" data-toggle="modal" class="glyphicon glyphicon-plus" data-original-title="" title="">
+            </a>
+        </div>
+    </div>
+
+    <div class="portlet-body">
+        <table class="table table-bordered">
+            <tbody>
+            <tr>
+                <th>编号</th>
+                <th>主机名</th>
+                <th>ip地址1</th>
+                <th>ip地址2</th>
+                <th>ip地址3</th>
+                <th>位置</th>
+                <th>操作系统</th>
+                <th>内存</th>
+                <th>硬盘</th>
+                <th>CPU</th>
+                <th>CPU核数</th>
+                <th>分类</th>
+                <th>上架时间</th>
+                <th>是否加入salt</th>
+                <th>salt状态</th>
+                <th>操作</th>
+            </tr>
+            {%for i in List%}
+            <tr>
+                <td>{{i.id}}</td>
+                <td>{{i.hostname}}</td>
+                <td>{{i.ip}}</td>
+                <td>{{i.ip1}}</td>
+                <td>{{i.ip2}}</td>
+                <td>{{i.location}}</td>
+                <td>{{i.osversion}}</td>
+                <td>{{i.memory}}</td>
+                <td>{{i.disk}}</td>
+                <td>{{i.model_name}}</td>
+                <td>{{i.cpu_core}}</td>
+                <td>{{i.sorts}}</td>
+                <td>{{i.create_time}}</td>
+                <td>{{i.salt_status}}</td>
+                <td><a href="join_salt/{{i.id}}"><button type="button" class="btn red-haze btn-sm" data-target="joinsalt">加入salt</button></a></td>
+                <td><a href="edit_show/{{i.id}}"><button type="button" class="btn red-haze btn-sm" data-target="modi">编辑</button></a></td>
+                {%endfor%}
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel">
+                            创建kvm虚拟机
+                        </h4>
+                    </div>
+                    <div>
+                        <form action="addHost/" name="theForm" method="get" class="form-horizontal" id="hostForm" role="form">
+                            <div class="form-group">
+                                <label for="cpus" class="col-sm-4 control-label">请选择云主机类型</label>
+                                <div class="col-sm-4">
+                                    <select type="text" name="cpus" class="form-control" id="cpus" required>
+                                        <option>请选择云主机类型</option>
+                                        <option>2C_4096G</option>
+                                        <option>4C_8192G</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="system" class="col-sm-4 control-label">请选择操作系统</label>
+                                <div class="col-sm-4">
+                                    <select type="text" name="system" class="form-control" id="system" onchange="getostype()">
+                                        <option value="0">请选择操作系统</option>
+                                        <option value="windows">windows</option>
+                                        <option value="centos6">centos6</option>
+                                        <option value="centos7">centos7</option>
+                                        <option value="ubuntu">ubuntu</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="mirror_name" class="col-sm-4 control-label">请选择镜像</label>
+                                <div class="col-sm-4">
+                                    <select type="text" name="mirror_name" class="form-control" id="mirror_name" required>
+                                        <option value="0">选择一个镜像</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="cloud_name" class="col-sm-4 control-label">请输入云主机用途</label>
+                                <div class="col-sm-4">
+                                    <input type="text" name="cloud_name" class="form-control" id="cloud_name" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="projects_name" class="col-sm-4 control-label">加入项目</label>
+                                <div class="col-sm-4">
+                                    <select type="text" name="projects_name" class="form-control" id="projects_name" required>
+                                        <option>请选择项目</option>
+                                        {%for i in pro_projects%}
+                                        <option>{{i.pro_name}}</option>
+                                        {%endfor%}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn red-haze btn-sm" data-dismiss="modal">关闭</button>
+                                <a href="javascript:void(0);" onclick="sendReq('/webkvm/addHost/',{'system':$('#system').val(),'cpus':$('#cpus').val(),'cloud_name':$('#cloud_name').val(),'projects_name':$('#projects_name').val(),'mirror_name':$('#mirror_name').val()},'get')"><button type="button" class="btn red-haze btn-sm" data-toggle="modal" aria-hidden="true">
+                                    创建
+                                </button></a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block appjs %}
+<script src="/assets/global/scripts/system_name.js"></script>
+{% endblock %}

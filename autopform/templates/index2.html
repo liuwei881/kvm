@@ -1,0 +1,183 @@
+{% extends "main.html" %}
+{% block content %}
+<div class="portlet box blue">
+	<div class="portlet-title">
+		<div class="caption">
+			<i class="fa fa-cogs"></i>中细软云管理平台
+		</div>
+		<div class="tools">
+			<a href="#portlet-config" data-toggle="modal" class="glyphicon glyphicon-plus" data-original-title="" title="">
+			</a>
+		</div>
+	</div>
+	<div class="portlet-body">
+		<div>
+			<table class="table table-bordered">
+				<h1>{{username}},欢迎光临中细软云平台</h1>
+			</table>
+		</div>
+	</div>
+</div>
+{%ifequal username 'admin'%}
+{%for i in pro_projects%}
+<div id="container-{{i.id}}" style="min-width:300px;height:300px"></div>
+{%endfor%}
+{%else%}
+<div id="container-{{pro.id}}" style="min-width:300px;height:300px"></div>
+{%endifequal%}
+{% endblock %}
+{% block appjs %}
+<script>
+{%ifequal username 'admin'%}
+{%for i in pro_projects%}
+$(function () {
+    $(document).ready(function () {
+
+        // Build the chart
+        $('#container-{{i.id}}').highcharts({
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false
+            },
+            title: {
+                text: '{{i.pro_name}}'
+            },
+
+            tooltip: {
+                pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:f}</b><br/>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: false
+                    },
+                    showInLegend: true
+                }
+            },
+            series: [{
+                type: 'pie',
+                name: 'cpu',
+                data: [
+                {
+                    name: '未分配cpu(单位:核)',
+                    y:{{i.c_cpu}} - {{i.v_cpu}}
+
+                },
+                {
+                    name: '已分配cpu(单位:核)',
+                    y:{{i.v_cpu}}
+                }],
+                center: [500, 50],
+                size: 200,
+                showInLegend: true,
+                dataLabels: {
+                enabled: false
+                    }
+                },
+
+                {
+                type: 'pie',
+                name: '内存',
+                data: [
+                {
+                    name: '未分配内存(单位:G)',
+                    y:{{i.c_memory}} - {{i.v_memory}},
+                    color:"#50B432"
+                },
+                {
+                    name:'已分配内存(单位:G)',
+                    y:{{i.v_memory}},
+                    color:"#028DC7"
+                }],
+                center: [1000, 50],
+                size: 200,
+                showInLegend: true,
+                dataLabels: {
+                enabled: false
+                    }
+                }]
+        });
+    });
+
+});
+{%endfor%}
+{%else%}
+$(function () {
+    $(document).ready(function () {
+
+        // Build the chart
+        $('#container-{{pro.id}}').highcharts({
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false
+            },
+            title: {
+                text: '{{pro.pro_name}}'
+            },
+
+            tooltip: {
+                pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:f}</b><br/>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: false
+                    },
+                    showInLegend: true
+                }
+            },
+            series: [{
+                type: 'pie',
+                name: 'cpu',
+                data: [
+                {
+                    name: '未分配cpu(单位:核)',
+                    y:{{pro.c_cpu}} - {{pro.v_cpu}}
+
+                },
+                {
+                    name: '已分配cpu(单位:核)',
+                    y:{{pro.v_cpu}}
+                }],
+                center: [500, 50],
+                size: 200,
+                showInLegend: true,
+                dataLabels: {
+                enabled: false
+                    }
+                },
+
+                {
+                type: 'pie',
+                name: '内存',
+                data: [
+                {
+                    name: '未分配内存(单位:G)',
+                    y:{{pro.c_memory}} - {{pro.v_memory}},
+                    color:"#50B432"
+                },
+                {
+                    name:'已分配内存(单位:G)',
+                    y:{{pro.v_memory}},
+                    color:"#028DC7"
+                }],
+                center: [1000, 50],
+                size: 200,
+                showInLegend: true,
+                dataLabels: {
+                enabled: false
+                    }
+                }]
+        });
+    });
+
+});
+{%endifequal%}
+</script>
+{% endblock %}

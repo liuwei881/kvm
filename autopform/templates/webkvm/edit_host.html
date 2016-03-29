@@ -1,0 +1,53 @@
+{% extends "main.html" %}
+{% block content %}
+<div class="portlet box blue">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-cogs"></i>修改服务器位置
+        </div>
+        <div class="tools">
+            <a href="#portlet-config" data-toggle="modal" class="glyphicon glyphicon-plus" data-original-title="" title="">
+            </a>
+        </div>
+    </div>
+    <div class="portlet-body">
+            <form action="/webkvm/edit/{{h.id}}"  method="get" class="form-horizontal" role="form">
+                <div class="form-group">
+                    <label for="hostname" class="col-sm-2 control-label">主机名</label>
+                    <div class="col-sm-2">
+                        <input type="text" class="form-control" id="hostname" placeholder="{{h.hostname}}" disabled>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="location" class="col-sm-2 control-label">位置</label>
+                    <div class="col-sm-2">
+                        <input type="text" maxlength="6" name="location" class="form-control" id="location" placeholder="请输入服务器位置">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="Sort" class="col-sm-2 control-label">分类</label>
+                    <div class="col-sm-2">
+                        <select type="text" name="Sort" class="form-control" id="Sort" required>
+                            <option>请选择主机类型</option>
+                            <option>network</option>
+                            <option>测试</option>
+                            <option>开发</option>
+                            <option>web</option>
+                        </select>
+                    </div>
+                </div>
+                <a href="/webkvm/"><button class="btn red-haze btn-sm" data-toggle="modal" data-target="#myModal">返回</button></a>
+                <button class="btn red-haze btn-sm" data-toggle="modal">修改</button>
+            </form>
+    </div>
+</div>
+{% endblock %}
+{% block appjs %}
+<script type="text/javascript">
+		$(function(){
+			$('#location').maxlength({
+	        	alwaysShow: true
+	        });
+		})
+</script>
+{% endblock %}

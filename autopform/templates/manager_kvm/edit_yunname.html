@@ -1,0 +1,39 @@
+{% extends "main.html" %}
+{% block content %}
+<div class="portlet box blue">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-cogs"></i>修改云主机用途
+        </div>
+        <div class="tools">
+            <a href="#portlet-config" data-toggle="modal" class="glyphicon glyphicon-plus" data-original-title="" title="">
+            </a>
+        </div>
+    </div>
+    <div class="portlet-body">
+            <form action="/manager/editname/{{h.id}}"  method="get" class="form-horizontal" role="form">
+                <div class="form-group">
+                    <label for="cloud_name" class="col-sm-2 control-label">输入云主机用途</label>
+                    <div class="col-sm-2">
+                        <input type="text" maxlength="30" name="cloud_name" class="form-control" id="cloud_name" placeholder="{{h.cloud_name}}">
+                    </div>
+                </div>
+                {%ifequal username 'admin' %}
+                <a href="/webkvm/manager_kvm/"><button type="button" class="btn red-haze btn-sm">返回</button></a>
+                {%else%}
+                <a href="/webkvm/manager_kvm/change_projects/{{pro.id}}/"><button type="button" class="btn red-haze btn-sm">返回</button></a>
+                {%endifequal%}
+                <button class="btn red-haze btn-sm" data-toggle="modal">修改</button>
+            </form>
+    </div>
+</div>
+{% endblock %}
+{% block appjs %}
+<script type="text/javascript">
+		$(function(){
+			$('#cloud_name').maxlength({
+	        	alwaysShow: true
+	        });
+		})
+</script>
+{% endblock %}

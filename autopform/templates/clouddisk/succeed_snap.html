@@ -1,0 +1,20 @@
+{% extends "main.html" %}
+{% block content %}
+<div class="portlet box blue">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-cogs"></i>创建快照成功
+        </div>
+    </div>
+
+    <div class="portlet-body">
+        <table class="table table-bordered">
+            <tbody>
+         在{{h.image_name}}上创建快照成功
+            </tbody>
+        </table>
+    </div>
+        <a href="/clouddisk/"><button class="btn red-haze btn-sm">返回</button></a>
+        <a href="/clouddisk/showsnap/{{h.id}}/"><button class="btn red-haze btn-sm">查看</button></a>
+</div>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends "main.html" %}
+{% block content %}
+<div class="portlet box blue">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-cogs"></i>查看快照回滚日志
+        </div>
+    </div>
+
+    <div class="portlet-body">
+        <table class="table table-bordered">
+            <tbody>
+            <tr>
+                <th>快照名称</th>
+                <th>回滚时间</th>
+                <th>回滚次数</th>
+            </tr>
+                {%for i in rollback%}
+            <tr>
+                {%ifequal i.snap_name h.snap_name%}
+                <td>{{i.snap_name}}</td>
+                <td>{{i.create_time}}</td>
+                <td>{{i.create_num}}</td>
+            </tr>
+            {%endifequal%}
+            {%endfor%}
+            </tbody>
+        </table>
+    </div>
+    <a href="/clouddisk/showsnap/{{h_id.id}}"><button class="btn red-haze btn-sm">返回</button></a>
+</div>
+{% endblock %}

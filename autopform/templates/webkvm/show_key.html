@@ -1,0 +1,119 @@
+{% extends "main.html" %}
+{% block content %}
+<div class="portlet box blue">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-cogs"></i>密钥列表
+        </div>
+        <div class="tools">
+            <button class="btn red-haze btn-sm" data-toggle="modal" data-target="#myModal-create-key">创建kvm密钥</button>
+        </div>
+    </div>
+
+    <div class="portlet-body">
+        <table class="table table-bordered">
+            <tbody>
+            <tr>
+                <th>秘钥名称</th>
+                <th>创建人</th>
+                <th>创建时间</th>
+                <th>所属项目</th>
+                <th>管理</th>
+            </tr>
+            {%for i in h%}
+            <tr>
+                <td>{{i.secretkey_name}}</td>
+                <td>{{i.create_person}}</td>
+                <td>{{i.create_time}}</td>
+                <td>{{i.projects_name}}</td>
+                <td>
+                    <button type="button" class="btn red-haze btn-sm" data-toggle="modal" data-target="#myModal-delete-{{i.id}}">删除密钥</button>
+                </td>
+            </tr>
+            <div class="modal fade" id="myModal-delete-{{i.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel-delete-{{i.id}}" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
+                            </button>
+                            <h4 class="modal-title" id="myModalLabel-delete-{{i.id}}">
+                                删除密钥
+                            </h4>
+                        </div>
+                        <div>
+                            <form action="/webkvm/delete_key/{{i.id}}" name="theForm-create-key" method="get" class="form-horizontal" id="hostForm-delete={{i.id}}" role="form">
+                                <div>
+                                    <font color="#FF0000" size="6">确定要删除密钥 {{i.secretkey_name}}</font>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn red-haze btn-sm" data-dismiss="modal">关闭</button>
+                                    <button type="submit" class="btn red-haze btn-sm" data-toggle="modal" aria-hidden="true">删除</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {%endfor%}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="modal fade" id="myModal-create-key" tabindex="-1" role="dialog" aria-labelledby="myModalLabel-create-key" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
+                </button>
+                <h4 class="modal-title" id="myModalLabel-create-key">
+                    创建kvm密钥
+                </h4>
+            </div>
+            <div>
+                {%ifequal username 'admin' %}
+                <form action="/webkvm/create_key/" name="theForm-create-key" method="get" class="form-horizontal" id="hostForm-create-key" role="form">
+                    <div class="form-group">
+                        <label for="create_key" class="col-sm-4 control-label">请输入密钥名称</label>
+                        <div class="col-sm-4">
+                            <input type="text" maxlength="15" name="create_key" class="form-control" id="create_key" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="projects_key" class="col-sm-4 control-label">属于项目</label>
+                        <div class="col-sm-4">
+                            <select type="text" name="projects_key" class="form-control" id="projects_key" required>
+                                <option>选择一个项目</option>
+                                {%for i in pro_projects%}
+                                <option>{{i.pro_name}}</option>
+                                {%endfor%}
+                            </select>
+                        </div>
+                    </div>
+                    {%else%}
+                    <form action="/webkvm/create_key/{{pro.id}}/" name="theForm-create-key" method="get" class="form-horizontal" id="hostForm-create-key" role="form">
+                    <div class="form-group">
+                        <label for="create_key" class="col-sm-4 control-label">请输入密钥名称</label>
+                        <div class="col-sm-4">
+                            <input type="text" maxlength="15" name="create_key" class="form-control" id="create_key" required>
+                        </div>
+                    </div>
+            </div>
+                    {%endifequal%}
+                    <div>
+                        描述:
+                        密钥是在启动时被注入到镜像中SSH的凭证。创建新的密钥，注册公钥并下载私钥。
+                        请妥善保管和使用SSH私钥。
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn red-haze btn-sm" data-dismiss="modal">关闭</button>
+                        <button type="submit" class="btn red-haze btn-sm" data-toggle="modal" aria-hidden="true">
+                            创建密钥
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
